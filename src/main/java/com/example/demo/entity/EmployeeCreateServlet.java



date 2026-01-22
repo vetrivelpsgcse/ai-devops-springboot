@@ -1,0 +1,31 @@
+package com.example.demo.servlet;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+@WebServlet("/employees/create")
+public class EmployeeCreateServlet extends HttpServlet {
+    private final EmployeeRepository repository = new EmployeeRepository();
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String name = request.getParameter("name");
+        double salary = Double.parseDouble(request.getParameter("salary"));
+        Employee employee = new Employee();
+        employee.setName(name);
+        employee.setSalary(salary);
+
+        if (repository.findById(employee.getId()) != null) {
+            repository.save(employee);
+            response.sendRedirect("/employees");
+        } else {
+            response.sendRedirect("/employees/create");
+        }
+    }
+}
+
+
