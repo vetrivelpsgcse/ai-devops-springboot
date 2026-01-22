@@ -1,9 +1,0 @@
-package com.example.demo.repository;
-
-import java.util.List;
-
-public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-    List<Employee> findAll();
-    Employee findEmployeeById(Long id);
-    void deleteEmployeeById(Long id);
-}
